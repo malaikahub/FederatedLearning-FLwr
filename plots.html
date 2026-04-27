@@ -1,0 +1,227 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.dash{padding:1rem 0}
+.top-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.method-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px;position:relative}
+.method-card.winner{border:2px solid #1D6FA4}
+.method-tag{font-size:10px;font-weight:500;padding:3px 10px;border-radius:999px;display:inline-block;margin-bottom:10px}
+.method-name{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.stat-row:last-child{border-bottom:none}
+.stat-k{font-size:12px;color:var(--color-text-secondary)}
+.stat-v{font-size:13px;font-weight:500}
+.donut-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.chart-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px}
+.chart-lbl{font-size:12px;color:var(--color-text-secondary);margin-bottom:12px;font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.round-table{width:100%;border-collapse:collapse;font-size:13px}
+.round-table th{font-size:11px;color:var(--color-text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.04em;padding:6px 10px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:right}
+.round-table th:first-child{text-align:left}
+.round-table td{padding:7px 10px;text-align:right;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.round-table td:first-child{text-align:left;color:var(--color-text-secondary);font-weight:500}
+.round-table tr:last-child td{border-bottom:none;font-weight:500}
+.verdict{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:16px;margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center}
+.vd-label{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px}
+.vd-val{font-size:14px;font-weight:500}
+.leg{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;align-items:center}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--color-text-secondary)}
+.leg-line{width:24px;height:3px;border-radius:2px;display:inline-block;flex-shrink:0}
+.axis-note{font-size:11px;color:var(--color-text-secondary);margin-top:6px;font-style:italic}
+</style>
+
+<h2 class="sr-only">Federated learning dashboard comparing FedAvg, FedProx and Centralized on MNIST.</h2>
+
+<div class="dash">
+
+<div class="top-row">
+  <div class="method-card">
+    <div class="method-tag" style="background:#EBF4FA;color:#1A5276">Federated</div>
+    <div class="method-name">FedAvg</div>
+    <div class="stat-row"><span class="stat-k">Final accuracy</span><span class="stat-v" style="color:#1D6FA4">99.88%</span></div>
+    <div class="stat-row"><span class="stat-k">Final loss</span><span class="stat-v" style="color:var(--color-text-primary)">0.0078</span></div>
+    <div class="stat-row"><span class="stat-k">Training time</span><span class="stat-v" style="color:var(--color-text-primary)">148.66 sec</span></div>
+    <div class="stat-row"><span class="stat-k">Privacy safe</span><span class="stat-v" style="color:#1E8449">Yes</span></div>
+    <div class="stat-row"><span class="stat-k">Speed rank</span><span class="stat-v" style="color:var(--color-text-primary)">#2</span></div>
+  </div>
+  <div class="method-card winner">
+    <div style="position:absolute;top:12px;right:12px;background:#EBF4FA;color:#1A5276;font-size:10px;padding:2px 10px;border-radius:999px;font-weight:500">Best</div>
+    <div class="method-tag" style="background:#EBF4FA;color:#1A5276">Federated</div>
+    <div class="method-name">FedProx</div>
+    <div class="stat-row"><span class="stat-k">Final accuracy</span><span class="stat-v" style="color:#1D6FA4">99.95%</span></div>
+    <div class="stat-row"><span class="stat-k">Final loss</span><span class="stat-v" style="color:var(--color-text-primary)">0.0060</span></div>
+    <div class="stat-row"><span class="stat-k">Training time</span><span class="stat-v" style="color:var(--color-text-primary)">174.39 sec</span></div>
+    <div class="stat-row"><span class="stat-k">Privacy safe</span><span class="stat-v" style="color:#1E8449">Yes</span></div>
+    <div class="stat-row"><span class="stat-k">Speed rank</span><span class="stat-v" style="color:var(--color-text-primary)">#3</span></div>
+  </div>
+  <div class="method-card">
+    <div class="method-tag" style="background:#EAFAF1;color:#1E5631">Centralized</div>
+    <div class="method-name">Centralized</div>
+    <div class="stat-row"><span class="stat-k">Final accuracy</span><span class="stat-v" style="color:#1E8449">99.57%</span></div>
+    <div class="stat-row"><span class="stat-k">Final loss</span><span class="stat-v" style="color:var(--color-text-primary)">—</span></div>
+    <div class="stat-row"><span class="stat-k">Training time</span><span class="stat-v" style="color:var(--color-text-primary)">82.44 sec</span></div>
+    <div class="stat-row"><span class="stat-k">Privacy safe</span><span class="stat-v" style="color:#922B21">No</span></div>
+    <div class="stat-row"><span class="stat-k">Speed rank</span><span class="stat-v" style="color:var(--color-text-primary)">#1</span></div>
+  </div>
+</div>
+
+<div class="donut-row">
+  <div class="chart-card">
+    <div class="chart-lbl">Final accuracy share</div>
+    <div style="position:relative;height:170px"><canvas id="donut1" role="img" aria-label="Donut chart: FedProx 99.95%, FedAvg 99.88%, Centralized 99.57%">FedProx 99.95%, FedAvg 99.88%, Centralized 99.57%</canvas></div>
+    <div class="leg">
+      <span class="leg-item"><span class="leg-line" style="background:#1D6FA4"></span>FedAvg 99.88%</span>
+      <span class="leg-item"><span class="leg-line" style="background:#148F77"></span>FedProx 99.95%</span>
+      <span class="leg-item"><span class="leg-line" style="background:#839192"></span>Central 99.57%</span>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-lbl">Training time (seconds)</div>
+    <div style="position:relative;height:170px"><canvas id="bar1" role="img" aria-label="Bar chart: Centralized 82s, FedAvg 149s, FedProx 174s">Centralized 82s, FedAvg 149s, FedProx 174s.</canvas></div>
+  </div>
+</div>
+
+<div class="chart-card" style="margin-bottom:14px">
+  <div class="chart-lbl">Accuracy &amp; loss per round — all methods combined</div>
+  <div style="position:relative;height:240px">
+    <canvas id="mergedChart" role="img" aria-label="Combined line chart showing accuracy (left axis) and loss (right axis) for FedAvg, FedProx and Centralized across 5 rounds">FedProx accuracy is highest. FedAvg and Centralized follow. Loss decreases each round for federated methods.</canvas>
+  </div>
+  <div class="leg">
+    <span class="leg-item"><span class="leg-line" style="background:#1D6FA4"></span>FedAvg acc</span>
+    <span class="leg-item"><span class="leg-line" style="background:#148F77"></span>FedProx acc</span>
+    <span class="leg-item"><span class="leg-line" style="background:#839192;border-top:3px dashed #839192;height:0"></span>Central acc</span>
+    <span class="leg-item"><span class="leg-line" style="background:#D4AC0D;border-top:3px dotted #D4AC0D;height:0"></span>FedAvg loss</span>
+    <span class="leg-item"><span class="leg-line" style="background:#CB4335;border-top:3px dotted #CB4335;height:0"></span>FedProx loss</span>
+  </div>
+  <div class="axis-note">Left axis = accuracy &nbsp;|&nbsp; Right axis = loss</div>
+</div>
+
+<div class="chart-card" style="margin-bottom:14px">
+  <div class="chart-lbl">Round-by-round detail</div>
+  <table class="round-table">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th style="color:#1D6FA4">FedAvg acc</th>
+        <th style="color:#148F77">FedProx acc</th>
+        <th style="color:#839192">Central acc</th>
+        <th style="color:#D4AC0D">FedAvg loss</th>
+        <th style="color:#CB4335">FedProx loss</th>
+      </tr>
+    </thead>
+    <tbody id="rtbody"></tbody>
+  </table>
+</div>
+
+<div class="verdict">
+  <div><div class="vd-label">Highest accuracy</div><div class="vd-val" style="color:#148F77">FedProx</div></div>
+  <div><div class="vd-label">Fastest training</div><div class="vd-val" style="color:#1E8449">Centralized</div></div>
+  <div><div class="vd-label">Best trade-off</div><div class="vd-val" style="color:#1D6FA4">FedAvg</div></div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const rounds = ['Round 1','Round 2','Round 3','Round 4','Round 5'];
+const fa_acc  = [0.9656,0.9864,0.9948,0.9977,0.9988];
+const fp_acc  = [0.9667,0.9877,0.9945,0.9982,0.9995];
+const ct_acc  = [0.9522,0.9834,0.9890,0.9930,0.9957];
+const fa_loss = [0.1409,0.0551,0.0266,0.0139,0.0078];
+const fp_loss = [0.1356,0.0518,0.0252,0.0123,0.0060];
+
+const tbody = document.getElementById('rtbody');
+['R1','R2','R3','R4','R5'].forEach((r,i) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${r}</td>
+    <td style="color:#1D6FA4">${fa_acc[i].toFixed(4)}</td>
+    <td style="color:#148F77">${fp_acc[i].toFixed(4)}</td>
+    <td style="color:#839192">${ct_acc[i].toFixed(4)}</td>
+    <td style="color:#D4AC0D">${fa_loss[i].toFixed(4)}</td>
+    <td style="color:#CB4335">${fp_loss[i].toFixed(4)}</td>`;
+  tbody.appendChild(tr);
+});
+
+const gridColor = 'rgba(128,128,128,0.12)';
+const tickOpts  = { color:'#888', font:{ size:11 } };
+
+new Chart(document.getElementById('donut1'),{
+  type:'doughnut',
+  data:{
+    labels:['FedAvg','FedProx','Centralized'],
+    datasets:[{data:[99.88,99.95,99.57],backgroundColor:['#1D6FA4','#148F77','#839192'],borderWidth:3,borderColor:'#fff'}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,cutout:'65%',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>v.label+': '+v.raw.toFixed(2)+'%'}}}}
+});
+
+new Chart(document.getElementById('bar1'),{
+  type:'bar',
+  data:{
+    labels:['Centralized','FedAvg','FedProx'],
+    datasets:[{data:[82.44,148.66,174.39],backgroundColor:['#839192','#1D6FA4','#148F77'],borderRadius:5,borderSkipped:false}]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>v.raw+' sec'}}},
+    scales:{
+      x:{grid:{color:gridColor},ticks:{...tickOpts,callback:v=>v+'s'}},
+      y:{grid:{display:false},ticks:tickOpts}
+    }
+  }
+});
+
+new Chart(document.getElementById('mergedChart'),{
+  type:'line',
+  data:{labels:rounds,datasets:[
+    {
+      label:'FedAvg acc',data:fa_acc,
+      borderColor:'#1D6FA4',backgroundColor:'rgba(29,111,164,0.07)',
+      tension:0.35,pointRadius:5,pointBackgroundColor:'#1D6FA4',
+      pointStyle:'circle',borderWidth:2.5,yAxisID:'y'
+    },
+    {
+      label:'FedProx acc',data:fp_acc,
+      borderColor:'#148F77',backgroundColor:'rgba(20,143,119,0.07)',
+      tension:0.35,pointRadius:5,pointBackgroundColor:'#148F77',
+      pointStyle:'triangle',borderWidth:2.5,yAxisID:'y'
+    },
+    {
+      label:'Central acc',data:ct_acc,
+      borderColor:'#839192',backgroundColor:'rgba(131,145,146,0.06)',
+      tension:0.35,borderDash:[7,4],pointRadius:5,pointBackgroundColor:'#839192',
+      pointStyle:'rect',borderWidth:2,yAxisID:'y'
+    },
+    {
+      label:'FedAvg loss',data:fa_loss,
+      borderColor:'#D4AC0D',backgroundColor:'rgba(212,172,13,0.06)',
+      tension:0.35,borderDash:[3,3],pointRadius:4,pointBackgroundColor:'#D4AC0D',
+      pointStyle:'circle',borderWidth:2,yAxisID:'y2'
+    },
+    {
+      label:'FedProx loss',data:fp_loss,
+      borderColor:'#CB4335',backgroundColor:'rgba(203,67,53,0.06)',
+      tension:0.35,borderDash:[3,3],pointRadius:4,pointBackgroundColor:'#CB4335',
+      pointStyle:'triangle',borderWidth:2,yAxisID:'y2'
+    },
+  ]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+    scales:{
+      x:{grid:{display:false},ticks:tickOpts},
+      y:{
+        min:0.94,max:1.001,position:'left',
+        grid:{color:gridColor},
+        ticks:{...tickOpts,callback:v=>(v*100).toFixed(1)+'%'},
+        title:{display:true,text:'Accuracy',color:'#888',font:{size:11}}
+      },
+      y2:{
+        min:0,max:0.17,position:'right',
+        grid:{display:false},
+        ticks:{...tickOpts,color:'#aaa',callback:v=>v.toFixed(2)},
+        title:{display:true,text:'Loss',color:'#aaa',font:{size:11}}
+      }
+    }
+  }
+});
+</script>
